@@ -12,5 +12,10 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello RESTEasy";
+
+    @Path("/personalized/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String personalizedHello(@PathParam("name") String name) { return "Hello " + name; }
     }
 }
