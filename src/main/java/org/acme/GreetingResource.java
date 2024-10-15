@@ -1,6 +1,7 @@
 package org.acme;
 
-import jakarta.ws.rs.GET;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -10,40 +11,39 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/hello")
 public class GreetingResource {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello(){ return "Hello RESTEasy";}
-
+    /**
+     * Handles a personalized greeting request and persists the user's name.
+     * 
+     * @param name The name of the user.
+     * @return A greeting message indicating that the name has been stored.
+     */
     @Path("/personalized/{name}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String personalizedHello(@PathParam("name") String name) {return "Hello " + name;}
-
     @POST
-    @Path("/personalized")
     @Produces(MediaType.TEXT_PLAIN)
-    public String personalizedHelloPost(Person p) {
-        return "Hello " + p.getFirst() + " " + p.getLast();
+    @Transactional
+    public String personalizedHello(@PathParam("name") String name) {
+        // Create a new UserName object
+        UserName userName = new UserName(name);
+        // Persist the new UserName object
+        userName.persist();
+        // Return the personalized greeting message
+        return "Hello " + name + "! Your name has been stored in the database.";
     }
 
-    public static class Person {
-        private String first; 
-        private String last;
+    // Inner class representing a UserName entity
+    public static class UserName extends PanacheEntityBase {
+        public String name;
 
-        public String getFirst() {
-            return first;
+        public UserName() {
         }
 
-        public void setFirst(String first) {
-            this.first = first;
+        public UserName(String name) {
+            this.name = name;
         }
 
-        public String getLast() {
-            return last;
-        }
-
-        public void setLast(String last) {
-            this.last = last;
+        @Override
+        public String toString() {
+            return name;
         }
     }
 }
