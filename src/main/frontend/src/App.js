@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import './App.css'
+import './App.css';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [message, setMessage] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  
+  const navigate = useNavigate();
+  const navigateToPage2 = () => {
+    navigate('/page2');
+  };
 
   const fetchMessage = async () => {
     try {
@@ -56,6 +62,8 @@ function App() {
         <button type="submit">Submit</button>
       </form>
       <p>{message}</p>
+      {/* New button for navigation */}
+      <button onClick={navigateToPage2}>Page 2</button>
     </div>
   );
 }
