@@ -12,29 +12,10 @@ function App() {
     navigate('/page2');
   };
 
-  const fetchMessage = async () => {
-    try {
-      const response = await fetch('/hello/personalized', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          first: firstName, 
-          last: lastName
-        }),
-      });
-
-      const text = await response.text();
-      setMessage(text);
-    } catch (error) {
-      console.error('Error fetching message:', error);
-    }
-  };
-
+  // Updated handleSubmit to display "Welcome Trainer"
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchMessage();
+    setMessage(`Welcome Trainer ${firstName} ${lastName}!`);
   };
 
   return (
@@ -61,6 +42,7 @@ function App() {
         <br />
         <button type="submit">Submit</button>
       </form>
+      {/* Display the message */}
       <p>{message}</p>
       {/* New button for navigation */}
       <button onClick={navigateToPage2}>Page 2</button>

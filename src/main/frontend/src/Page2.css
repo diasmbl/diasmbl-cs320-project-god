@@ -1,0 +1,16 @@
+/* Page2.css */
+
+body {
+    background-color: lightblue;
+  }
+  
+  h1 {
+    color: navy;
+    text-align: center;
+  }
+  
+  .container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  

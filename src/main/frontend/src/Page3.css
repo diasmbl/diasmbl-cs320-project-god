@@ -1,0 +1,16 @@
+/* Page3.css */
+
+body {
+    background-color: lightgreen;
+  }
+  
+  h1 {
+    color: darkgreen;
+    text-align: center;
+  }
+  
+  .container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  

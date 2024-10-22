@@ -1,0 +1,27 @@
+/* Navbar.css */
+
+nav {
+    background-color: #ff0000; /* Red background for the Navbar */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  nav div {
+    display: inline-block;
+  }
+  
+  nav a {
+    color: black; /* Black text color for links */
+    text-decoration: none; /* Remove underline */
+    font-size: 1.5em; /* Increase font size for better visibility */
+    padding: 10px 20px; /* Add padding around the text */
+    border: 2px solid #ffcc00; /* Add yellow circular border around links */
+    border-radius: 50px; /* Circular shape for the links */
+    margin: 0 10px; /* Space between buttons */
+  }
+  
+  nav a:hover {
+    background-color: #ffcc00; /* Yellow background on hover */
+    color: black; /* Black text on hover */
+  }
+  
