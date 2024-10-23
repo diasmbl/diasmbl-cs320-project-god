@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Page2 from './Page2';
-import Page3 from './Page3';  // Import the new Page3
+import Page3 from './Page3';  // Import Page3 for Starter Roulette
 import Navbar from './Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navbar />
+      <Navbar /> {/* Navbar with navigation links */}
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/region" element={<Page2 />} />
-        <Route path="/starter" element={<Page3 />} />  {/* Add route for Page3 */}
+        <Route path="/" element={<App />} /> {/* Home page */}
+        <Route path="/page2" element={<Page2 />} /> {/* Region Roulette */}
+        <Route path="/page3" element={<Page3 />} /> {/* Starter Roulette */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
-import './Page2.css';  // CSS for styling the page
+import { useNavigate } from 'react-router-dom';
 
-const regions = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea"];
+const regions = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar', 'Paldea'];
 
-const Page2 = () => {
+function Page2() {
   const [selectedRegion, setSelectedRegion] = useState('');
+  const navigate = useNavigate();
 
   const spinRoulette = () => {
     const randomRegion = regions[Math.floor(Math.random() * regions.length)];
     setSelectedRegion(randomRegion);
   };
 
+  const navigateToPage3 = () => {
+    navigate('/page3'); // Navigates to Page 3 (Starter Roulette)
+  };
+
   return (
-    <div className="region-roulette">
-      <h2>Spin to Choose Your Region!</h2>
+    <div>
+      <h1>Region Roulette</h1>
+      <p>Click below to spin for a Pokémon region!</p>
       <button onClick={spinRoulette}>Spin Roulette</button>
-      {selectedRegion && <h3>Your Region is: {selectedRegion}</h3>}
-      <img src="/path-to-your-region-image.jpg" alt="Region Roulette" /> {/* Add image to enhance design */}
+      {selectedRegion && <p>You will be playing in the {selectedRegion} region!</p>}
+      
+      <button onClick={navigateToPage3}>Page 3 (Starter Roulette)</button>
     </div>
   );
-};
+}
 
 export default Page2;

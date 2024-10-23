@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';  // Link the CSS file for styling
+import './Navbar.css'; // Assuming you have a CSS file for Navbar styling
 
 const Navbar = () => {
   return (
     <nav>
       <div>
         <Link to="/">Home</Link>
-        <span> | </span> {/* For spacing */}
-        <Link to="/region">Region Roulette</Link>
         <span> | </span>
-        <Link to="/starter">Starter Roulette</Link>
+        <Link to="/page2">Region Roulette</Link>
+        <span> | </span>
+        <Link to="/page3">Starter Roulette</Link>
       </div>
     </nav>
   );
 };
 
 export default Navbar;
-

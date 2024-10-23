@@ -1,24 +1,53 @@
 import React, { useState } from 'react';
-import './Page3.css';  // CSS for styling the page
 
-const starters = ["Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"];
+// Updated list with all starter Pokémon and their types
+const starters = [
+  'Bulbasaur (Grass/Poison)',
+  'Charmander (Fire)',
+  'Squirtle (Water)',
+  'Chikorita (Grass)',
+  'Cyndaquil (Fire)',
+  'Totodile (Water)',
+  'Treecko (Grass)',
+  'Torchic (Fire)',
+  'Mudkip (Water)',
+  'Turtwig (Grass)',
+  'Chimchar (Fire)',
+  'Piplup (Water)',
+  'Snivy (Grass)',
+  'Tepig (Fire)',
+  'Oshawott (Water)',
+  'Chespin (Grass)',
+  'Fennekin (Fire)',
+  'Froakie (Water)',
+  'Rowlet (Grass/Flying)',
+  'Litten (Fire)',
+  'Popplio (Water)',
+  'Grookey (Grass)',
+  'Scorbunny (Fire)',
+  'Sobble (Water)',
+  'Sprigatito (Grass)',
+  'Fuecoco (Fire)',
+  'Quaxly (Water)',
+  'Pikachu (Electric)' // Added Pikachu as a bonus option
+];
 
-const Page3 = () => {
-  const [selectedStarter, setSelectedStarter] = useState('');
+function Page3() {
+  const [starterPokemon, setStarterPokemon] = useState('');
 
   const spinStarterRoulette = () => {
     const randomStarter = starters[Math.floor(Math.random() * starters.length)];
-    setSelectedStarter(randomStarter);
+    setStarterPokemon(randomStarter);
   };
 
   return (
-    <div className="starter-roulette">
-      <h2>Spin to Choose Your Starter Pokémon!</h2>
-      <button onClick={spinStarterRoulette}>Spin Starter Roulette</button>
-      {selectedStarter && <h3>Your Starter is: {selectedStarter}</h3>}
-      <img src="/path-to-your-starter-image.jpg" alt="Starter Roulette" /> {/* Add image */}
+    <div>
+      <h1>Starter Pokémon Roulette</h1>
+      <p>Click below to spin for your starter Pokémon!</p>
+      <button onClick={spinStarterRoulette}>Spin Roulette</button>
+      {starterPokemon && <p>Your starter Pokémon is {starterPokemon}!</p>}
     </div>
   );
-};
+}
 
 export default Page3;

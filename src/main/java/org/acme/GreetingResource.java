@@ -20,13 +20,20 @@ public class GreetingResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
-    public String personalizedHello(@PathParam("name") String name) {
-        // Create a new UserName object
+    public Response personalizedHello(@PathParam("name") String name) {
+        // Validate the name input
+        if (name == null || name.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Please provide a valid name.")
+                    .build();
+        }
+
+        // Create a new UserName object and persist it
         UserName userName = new UserName(name);
-        // Persist the new UserName object
         userName.persist();
-        // Return the personalized greeting message
-        return "Hello " + name + "! Your name has been stored in the database.";
+
+        // Return success message
+        return Response.ok("Hello " + name + "! Your name has been stored in the database.").build();
     }
 
     /**
@@ -37,9 +44,14 @@ public class GreetingResource {
     @Path("/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserName> getAllNames() {
-        // Return all UserName entities in the database
-        return UserName.listAll();
+    public Response getAllNames() {
+        List<UserName> names = UserName.listAll();
+
+        if (names.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("No users found").build();
+        }
+
+        return Response.ok(names).build();
     }
 
     /**
@@ -52,10 +64,15 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response getUserByName(@PathParam("name") String name) {
+        // Search for the user by name in the database
         UserName userName = UserName.find("name", name).firstResult();
+
         if (userName == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("User with the name '" + name + "' not found.")
+                    .build();
         }
+
         return Response.ok(userName.name).build();
     }
 
@@ -71,12 +88,25 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
     public Response updateUserName(@PathParam("oldName") String oldName, @PathParam("newName") String newName) {
+        // Fetch the user by old name
         UserName userName = UserName.find("name", oldName).firstResult();
+
         if (userName == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("User with the name '" + oldName + "' not found.")
+                    .build();
         }
+
+        if (newName == null || newName.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("New name cannot be empty.")
+                    .build();
+        }
+
+        // Update the user's name
         userName.name = newName;
         userName.persist();
+
         return Response.ok("User name updated to " + newName).build();
     }
 
@@ -91,11 +121,18 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
     public Response deleteUserByName(@PathParam("name") String name) {
+        // Fetch the user by name
         UserName userName = UserName.find("name", name).firstResult();
+
         if (userName == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("User with the name '" + name + "' not found.")
+                    .build();
         }
+
+        // Delete the user
         userName.delete();
+
         return Response.ok("User " + name + " deleted from the database.").build();
     }
 

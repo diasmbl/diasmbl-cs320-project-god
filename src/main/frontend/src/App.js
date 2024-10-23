@@ -1,80 +1,43 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
-import { useNavigate } from 'react-router-dom';
 
 function App() {
-  const [message, setMessage] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-  const navigate = useNavigate();
-  const navigateToPage2 = () => {
-    navigate('/page2');
-  };
+  // Function to handle validation (only letters allowed)
+  const handleInputChange = (setter) => (e) => {
+    const value = e.target.value;
+    const regex = /^[A-Za-z]*$/; // Regex to allow only letters (uppercase and lowercase)
 
-  // Function to validate that the input only contains letters
-  const validateInput = (value) => /^[A-Za-z]+$/.test(value);
-
-  const handleFirstNameChange = (e) => {
-    const { value } = e.target;
-    if (value === '' || validateInput(value)) {
-      setFirstName(value);
-      setError('');
-    } else {
-      setError('Only letters are allowed in First Name');
+    if (regex.test(value)) {
+      setter(value);
     }
   };
 
-  const handleLastNameChange = (e) => {
-    const { value } = e.target;
-    if (value === '' || validateInput(value)) {
-      setLastName(value);
-      setError('');
-    } else {
-      setError('Only letters are allowed in Last Name');
-    }
-  };
-
-  const fetchMessage = async () => {
-    try {
-      const response = await fetch('/hello/personalized', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          first: firstName, 
-          last: lastName
-        }),
-      });
-
-      const text = await response.text();
-      setMessage(`Welcome Trainer ${firstName} ${lastName}`);
-    } catch (error) {
-      console.error('Error fetching message:', error);
-    }
-  };
-
+  // Function to submit form
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstName && lastName && !error) {
-      fetchMessage();
+    if (!firstName || !lastName) {
+      setMessage('Please enter both first name and last name.');
     } else {
-      setError('Please fill out both First Name and Last Name with valid alphabetic characters');
+      setMessage(`Welcome Trainer ${firstName} ${lastName}!`);
     }
   };
 
   return (
-    <div>
-      <h1>Personalized Greeting</h1>
+    <div className="App">
+      <h1>Trainer Name</h1>  {/* Updated to display "Trainer Name" */}
       <form onSubmit={handleSubmit}>
         <label>
           First Name:
           <input
             type="text"
             value={firstName}
-            onChange={handleFirstNameChange}
+            onChange={handleInputChange(setFirstName)}
+            required
           />
         </label>
         <br />
@@ -83,19 +46,26 @@ function App() {
           <input
             type="text"
             value={lastName}
-            onChange={handleLastNameChange}
+            onChange={handleInputChange(setLastName)}
+            required
           />
         </label>
         <br />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Submit</button>
       </form>
+
+      {/* Display Message */}
       <p>{message}</p>
-      {/* Button for navigation */}
-      <button onClick={navigateToPage2}>Page 2</button>
+
+      {/* Navigation Buttons */}
+      <Link to="/page2">
+        <button>Region Roulette</button>
+      </Link>
+      <Link to="/page3">
+        <button>Starter Roulette</button>
+      </Link>
     </div>
   );
 }
 
 export default App;
-
