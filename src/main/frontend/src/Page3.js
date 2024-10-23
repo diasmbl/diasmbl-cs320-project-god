@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// Updated list with all starter Pokémon and their types
+// List of all starter Pokémon by region, along with their types
 const starters = [
   'Bulbasaur (Grass/Poison)',
   'Charmander (Fire)',
@@ -29,15 +29,17 @@ const starters = [
   'Sprigatito (Grass)',
   'Fuecoco (Fire)',
   'Quaxly (Water)',
-  'Pikachu (Electric)' // Added Pikachu as a bonus option
+  'Pikachu (Electric)' // Added Pikachu as a bonus starter option
 ];
 
 function Page3() {
+  // State variable to store the randomly selected starter Pokémon
   const [starterPokemon, setStarterPokemon] = useState('');
 
+  // Function to randomly select a starter Pokémon
   const spinStarterRoulette = () => {
     const randomStarter = starters[Math.floor(Math.random() * starters.length)];
-    setStarterPokemon(randomStarter);
+    setStarterPokemon(randomStarter); // Update state with selected starter Pokémon
   };
 
   return (
@@ -45,6 +47,8 @@ function Page3() {
       <h1>Starter Pokémon Roulette</h1>
       <p>Click below to spin for your starter Pokémon!</p>
       <button onClick={spinStarterRoulette}>Spin Roulette</button>
+
+      {/* Display selected starter Pokémon */}
       {starterPokemon && <p>Your starter Pokémon is {starterPokemon}!</p>}
     </div>
   );
