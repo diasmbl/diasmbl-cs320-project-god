@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Page3.css'; // Import the CSS file for centering and styling
 
 // List of all starter Pokémon by region, along with their types
 const starters = [
@@ -43,7 +44,7 @@ function Page3() {
   };
 
   return (
-    <div>
+    <div className="page3-container">
       <h1>Starter Pokémon Roulette</h1>
       <p>Click below to spin for your starter Pokémon!</p>
       <button onClick={spinStarterRoulette}>Spin Roulette</button>

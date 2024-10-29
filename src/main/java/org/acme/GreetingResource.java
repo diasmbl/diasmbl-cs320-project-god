@@ -1,6 +1,5 @@
 package org.acme;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -29,7 +28,8 @@ public class GreetingResource {
         }
 
         // Create a new UserName object and persist it
-        UserName userName = new UserName(name);
+        UserName userName = new UserName();
+        userName.setName(name);
         userName.persist();
 
         // Return success message
@@ -73,7 +73,7 @@ public class GreetingResource {
                     .build();
         }
 
-        return Response.ok(userName.name).build();
+        return Response.ok(userName.getName()).build();
     }
 
     /**
@@ -104,7 +104,7 @@ public class GreetingResource {
         }
 
         // Update the user's name
-        userName.name = newName;
+        userName.setName(newName);
         userName.persist();
 
         return Response.ok("User name updated to " + newName).build();
@@ -134,22 +134,5 @@ public class GreetingResource {
         userName.delete();
 
         return Response.ok("User " + name + " deleted from the database.").build();
-    }
-
-    // Inner class representing a UserName entity
-    public static class UserName extends PanacheEntityBase {
-        public String name;
-
-        public UserName() {
-        }
-
-        public UserName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 }
