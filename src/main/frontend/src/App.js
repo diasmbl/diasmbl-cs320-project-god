@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Trainer Name</h1>  {/* Updated heading to display "Trainer Name" */}
+      <h1>Trainer Name</h1> {/* Updated heading to display "Trainer Name" */}
       
       {/* Form for user to input first and last name */}
       <form onSubmit={handleSubmit}>
