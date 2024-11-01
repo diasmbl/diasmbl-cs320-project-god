@@ -1,6 +1,7 @@
 // Signup.js
 
 import React, { useState } from 'react';
+import { API_URL } from './config'; // Import API_URL
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ const Signup = () => {
     const data = { name: username, password };
 
     try {
-      const response = await fetch('/submit-name', {
+      const response = await fetch(`${API_URL}/submit-name`, { // Use API_URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

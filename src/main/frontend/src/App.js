@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom'; // Removed BrowserRouter to avoid duplication
 import './App.css';
+import { API_URL } from './config'; // Import API_URL for future use
 import Signup from './Signup';
 import Page2 from './Page2'; // Import Page2 for Region Roulette
 import Page3 from './Page3'; // Import Page3 for Starter Roulette
