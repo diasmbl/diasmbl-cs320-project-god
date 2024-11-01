@@ -1,0 +1,47 @@
+/* Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ff0000; /* Red background */
+    font-family: 'Comic Neue', sans-serif;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    border: 2px solid #ffcc00;
+    border-radius: 50px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    background-color: #ffcc00;
+    color: black;
+}
+
+.btn {
+    padding: 8px 16px;
+    font-size: 1em;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Comic Neue', sans-serif;
+}
+
+.btn:hover {
+    background-color: #e64a19;
+}
