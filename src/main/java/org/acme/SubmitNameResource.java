@@ -4,39 +4,32 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.mindrot.jbcrypt.BCrypt;  // Import BCrypt for password hashing
 
-/**
- * A resource class that handles submitting a user's name, validates it, and persists it to the database.
- */
 @Path("/submit-name")
 public class SubmitNameResource {
 
-    /**
-     * Handles the submission of a user's name, validates it, and persists it in the database.
-     * 
-     * @param user The user object containing the name.
-     * @return A response indicating the result of the operation.
-     */
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public Response submitName(UserName user) {
-        // Check if the name is empty
-        if (user.getName() == null || user.getName().isEmpty()) {
+        if (user.getName() == null || user.getName().isEmpty() || user.getPassword() == null || user.getPassword().isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Please enter a name.").build();
+                    .entity("Please enter both username and password.").build();
         }
 
-        // Check if the name contains spaces
         if (user.getName().contains(" ")) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Please enter only one name. Make sure your name does not contain spaces.").build();
+                    .entity("Username should not contain spaces.").build();
         }
 
-        // Persist the valid user name in the database
-        user.persist();  // This assumes UserName extends PanacheEntityBase or PanacheEntity
+        // Hash the password
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
 
-        // Return a success message
-        return Response.ok("Hello, " + user.getName() + "! Your name has been stored in the database.").build();
+        // Persist the user
+        user.persist();
+
+        return Response.ok("User " + user.getName() + " has been successfully registered.").build();
     }
 }

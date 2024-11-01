@@ -5,26 +5,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 
-/**
- * This class represents the UserName entity that will be persisted in the database.
- */
 @Entity
 public class UserName extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;  // Unique identifier for each UserName entry
+    public Long id;
 
-    public String name;  // The name field representing the user's name
+    public String name;
 
-    // Getter for the name field
+    @Column(nullable = false)
+    public String password;  // Securely store hashed password
+
     public String getName() {
         return name;
     }
 
-    // Setter for the name field
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
