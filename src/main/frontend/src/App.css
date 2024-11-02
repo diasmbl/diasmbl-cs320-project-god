@@ -1,6 +1,11 @@
 .App {
   text-align: center;
   background-color: transparent; /* Transparent background to ensure the image shows */
+  background-image: url(background.png); /* Adding background image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-size: cover; /* Ensures the image covers the entire viewport */
+  background-position: center; /* Centers the background image */
+  min-height: 100vh; /* Ensures the background covers the full height of the viewport */
 }
 
 h1 {
